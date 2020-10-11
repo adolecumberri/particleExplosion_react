@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  let rand = (num: number) => Math.floor(Math.random() * num - 1 + 1);
+
+  const loadParticles = () => {
+    let particles = [];
+
+    for (let i = 0; i < 400; i++) {
+      let animDuration = 1+(0.01*rand(200)) ;
+      particles.push(
+        <div
+          key={i}
+          className={"particle"}
+          style={{
+            transform: `translate(${rand(100)}vw, ${rand(100)}vh)`,
+            background: `hsl(${rand(360)}, 100%, 65%)`,
+            animationDuration: animDuration + "s",
+            animationDelay:  (-0.01*rand(100))*animDuration+ "s"
+          }}
+        ></div>
+      );
+    }
+
+    return particles;
+  };
+
+  return <div className={"container"}>{loadParticles()}</div>;
 }
 
 export default App;
